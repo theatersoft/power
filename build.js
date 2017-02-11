@@ -18,7 +18,7 @@ const targets = {
     node () {
         console.log('target node')
         exec('mkdir -p dist')
-        rollup.rollup({
+        return rollup.rollup({
                 entry: 'src/index.js',
                 external: [
                     'redux',
@@ -85,6 +85,17 @@ const targets = {
     publish () {
         console.log('target publish')
         exec('npm publish --access=public dist')
+    },
+
+    watch () {
+        require('chokidar').watch([`${__dirname}/src`, `${__dirname}/*.js`])
+            .on('change', path => {
+                console.log(path)
+                targets.node().then(() => {
+                    targets.package()
+                    //exec('npm run start')
+                })
+            })
     },
 
     all () {

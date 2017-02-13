@@ -2,11 +2,17 @@ import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'remote-redux-devtools'
 import reducer from './reducer'
-import bus from '@theatersoft/bus'
+import {bus} from '@theatersoft/bus'
 import {initDevices} from './actions'
+import {log} from './log'
+
+import os from 'os'
+const master = () => os.hostname
 
 export class Power {
     start ({name, config: {devices, remotedev: hostname = 'localhost'}}) {
+        hostname = os.hostname()
+        log(hostname)
         this.name = name
         return bus.registerObject(name, this)
             .then(obj => {
@@ -27,7 +33,7 @@ export class Power {
     }
 
     stop () {
-            return bus.unregisterObject(this.name)
+        return bus.unregisterObject(this.name)
     }
 
     dispatch (action) {

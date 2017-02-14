@@ -12,15 +12,18 @@ const
     babel = require('rollup-plugin-babel'),
     ignore = require('rollup-plugin-ignore'),
     nodeResolve = require('rollup-plugin-node-resolve'),
-    strip = require('rollup-plugin-strip')
+    strip = require('rollup-plugin-strip'),
+    pluginAsync = require('rollup-plugin-async')
 
 const targets = {
     node () {
         console.log('target node')
         exec('mkdir -p dist')
         return rollup.rollup({
+                acorn: {ecmaVersion: 8},
                 entry: 'src/index.js',
                 external: [
+                    'os',
                     'redux',
                     'redux-thunk',
                     !DIST && 'remote-redux-devtools',
@@ -54,6 +57,7 @@ const targets = {
                         ] : [])
                     }),
                     DIST && ignore(['remote-redux-devtools']),
+                    DIST && pluginAsync(), // workaround Unexpected token in rollup-plugin-strip
                     DIST && strip({functions: ['composeWithDevTools']}),
                     nodeResolve({
                         jsnext: true

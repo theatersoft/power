@@ -5,31 +5,31 @@ import reducer from './reducer'
 import {bus} from '@theatersoft/bus'
 import {initDevices} from './actions'
 import {log} from './log'
-
 import os from 'os'
-const master = () => os.hostname
 
-export class Power {
-    start ({name, config: {devices, remotedev: hostname = 'localhost'}}) {
-        hostname = os.hostname()
-        log(hostname)
+export class Host {
+    async start ({name, config: {devices, remotedev = 'localhost'}}) {
         this.name = name
-        return bus.registerObject(name, this)
-            .then(obj => {
-                this.store = createStore(
-                    reducer,
-                    {devices: {}},
-                    (composeWithDevTools({name, realtime: true, port: 6400, hostname}) || (x => x))
-                    (applyMiddleware(thunk.withExtraArgument({})))
-                )
-                this.store.dispatch(initDevices(devices))
-                this.store.subscribe(() =>
-                    obj.signal('state', this.store.getState()))
-                const register = () => bus.proxy('Device').registerService(this.name)
-                bus.registerListener(`Device.start`, register)
-                bus.on('reconnect', register)
-                register()
-            })
+        const
+            {hosts} = await bus.proxy('Config').get(),
+            hostname = os.hostname(),
+            host = hosts.find(h => h.name === hostname)
+
+        this.root = host && host.root
+        if (this.root) {
+            const obj = await bus.registerObject(name, this)
+            this.store = createStore(reducer, {devices: {}},
+                (composeWithDevTools({name, realtime: true, port: 6400, hostname: remotedev}) || (x => x))
+                (applyMiddleware(thunk.withExtraArgument({})))
+            )
+            this.store.dispatch(initDevices(devices))
+            this.store.subscribe(() =>
+                obj.signal('state', this.store.getState()))
+            const register = () => bus.proxy('Device').registerService(this.name)
+            bus.registerListener(`Device.start`, register)
+            bus.on('reconnect', register)
+            await register()
+        }
     }
 
     stop () {

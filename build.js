@@ -20,7 +20,6 @@ const targets = {
         console.log('target node')
         exec('mkdir -p dist')
         return rollup.rollup({
-                acorn: {ecmaVersion: 8},
                 entry: 'src/index.js',
                 external: [
                     'os',

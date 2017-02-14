@@ -1,19 +1,24 @@
+import {Type} from '@theatersoft/device'
 import {ON, on, OFF, off} from './actions'
-import {INIT_DEVICES} from './actions'
+import {INIT} from './actions'
 
-const reorder = arr => arr.map(({name, value, type, id}) => ({name, value, type, id}))
-const index = arr => arr.reduce((o, e) => (o[e.id] = e, o), {})
-
-export default function reducer (state, {type, devices, id}) {
+export default function reducer (state, action) {
+    const {type} = action
     switch (type) {
-    case INIT_DEVICES:
+    case INIT:
+        const
+            hosts = action.hosts.reduce((o, {name, host, mac}) =>
+                    (o[name] = {host, mac}, o), {}),
+            devices = action.hosts.reduce((o, {name}) =>
+                (o[name] = {name, type: Type.Switch, id: name}, o), {})
         return {
-            ...state,
-            devices: index(reorder(devices))
+            ...state, hosts, devices
         }
     case ON:
     case OFF:
-        const device = state.devices[id]
+        const
+            {id} = action,
+            device = state.devices[id]
         if (device && type === ON !== device.value)
             return {
                 ...state,

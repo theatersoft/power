@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'remote-redux-devtools'
 import reducer from './reducer'
 import {bus} from '@theatersoft/bus'
-import {initDevices} from './actions'
+import {init} from './actions'
 import {log} from './log'
 import os from 'os'
 
@@ -22,7 +22,7 @@ export class Host {
                 (composeWithDevTools({name, realtime: true, port: 6400, hostname: remotedev}) || (x => x))
                 (applyMiddleware(thunk.withExtraArgument({})))
             )
-            this.store.dispatch(initDevices(devices))
+            this.store.dispatch(init(hosts))
             this.store.subscribe(() =>
                 obj.signal('state', this.store.getState()))
             const register = () => bus.proxy('Device').registerService(this.name)

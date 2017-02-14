@@ -1,8 +1,8 @@
 import {Type, Interface, interfaceOfType} from '@theatersoft/device'
 
 export const
-    INIT_DEVICES = 'INIT_DEVICES',
-    initDevices = devices => ({type: INIT_DEVICES, devices})
+    INIT = 'INIT',
+    init = hosts => ({type: INIT, hosts})
 
 export const
     ON = 'ON',

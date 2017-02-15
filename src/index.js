@@ -7,7 +7,7 @@ import {init, registerHost} from './actions'
 import {log} from './log'
 import os from 'os'
 
-export class Host {
+export class Power {
     async start ({name, config: {devices, remotedev = 'localhost'}}) {
         const
             {hosts} = await bus.proxy('Config').get(),
@@ -31,8 +31,8 @@ export class Host {
         } else {
             this.name = `${name}.${hostname}`
             const obj = await bus.registerObject(this.name, this) // TODO registerLocalObject
-            const register = () => bus.proxy('Host').registerHost(hostname)
-            bus.registerListener(`Host.start`, register)
+            const register = () => bus.proxy('Power').registerHost(hostname)
+            bus.registerListener(`Power.start`, register)
             bus.on('reconnect', register)
             await register()
         }

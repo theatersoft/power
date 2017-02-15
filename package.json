@@ -10,7 +10,7 @@
     "DEBUG9930": "npm run BUS -- node --harmony-async-await --inspect=9930 --debug-brk",
     "build": "time -p node build.js && ls -l dist",
     "build:dist": "DIST=true npm run build",
-    "link": "npm link; npm link @theatersoft/host @theatersoft/bus @theatersoft/device",
+    "link": "npm link; npm link @theatersoft/power @theatersoft/bus @theatersoft/device",
     "bus:start": "npm explore @theatersoft/bus -- npm run start",
     "start": "npm run RUN -- dist/start.js",
     "debug": "npm run DEBUG -- dist/start.js",

@@ -1,13 +1,13 @@
 'use strict'
 require('@theatersoft/bus').setTime(true)
-require('@theatersoft/bus').setTag('Host')
+require('@theatersoft/bus').setTag('Power')
 require('@theatersoft/bus').bus.start()
     .then(() => {
         const
             options = {
-                module: '@theatersoft/host',
-                export: 'Host',
-                name: 'Host',
+                module: '@theatersoft/power',
+                export: 'Power',
+                name: 'Power',
                 config: {
                     manager: true
                 }

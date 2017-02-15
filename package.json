@@ -1,8 +1,8 @@
 {
-  "name": "@theatersoft/host",
+  "name": "@theatersoft/power",
   "version": "1.4.2",
   "description": "",
-  "main": "dist/host.js",
+  "main": "dist/power.js",
   "scripts": {
     "BUS": "BUS=`[ -f .bus ] && cat .bus` AUTH=`[ -f .auth ] && cat .auth`",
     "RUN": "npm run BUS -- node --harmony-async-await",

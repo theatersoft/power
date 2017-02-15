@@ -15,6 +15,7 @@ export default function reducer (state, action) {
             ...state, hosts, devices
         }
     case REGISTER_HOST:
+    {
         const
             {name, path} = action,
             host = {...state.hosts[name], path},
@@ -24,8 +25,10 @@ export default function reducer (state, action) {
             hosts: {...state.hosts, [name]: host},
             devices: {...state.devices, [name]: device}
         }
+    }
     case ON:
     case OFF:
+    {
         const
             {id} = action,
             device = state.devices[id]
@@ -37,6 +40,7 @@ export default function reducer (state, action) {
                     [id]: {...device, value: type === ON}
                 }
             }
+    }
     }
     return state
 }

@@ -4,7 +4,7 @@ import {composeWithDevTools} from 'remote-redux-devtools'
 import reducer from './reducer'
 import {bus} from '@theatersoft/bus'
 import {init, registerHost, api} from './actions'
-import {log, error} from './log'
+import {log} from './log'
 import os from 'os'
 import {wake, suspend} from './network'
 

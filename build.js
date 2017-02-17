@@ -23,6 +23,7 @@ const targets = {
                 entry: 'src/index.js',
                 external: [
                     'os',
+                    'child_process',
                     'redux',
                     'redux-thunk',
                     !DIST && 'remote-redux-devtools',

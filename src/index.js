@@ -3,9 +3,10 @@ import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'remote-redux-devtools'
 import reducer from './reducer'
 import {bus} from '@theatersoft/bus'
-import {init, registerHost} from './actions'
-import {log} from './log'
+import {init, registerHost, api} from './actions'
+import {log, error} from './log'
 import os from 'os'
+import {wake, suspend} from './network'
 
 export class Power {
     async start ({name, config: {devices, remotedev = 'localhost'}}) {
@@ -57,5 +58,16 @@ export class Power {
 
     resolveHost (name) {
 
+    }
+
+    wake (name) {
+        log('wake', name)
+        wake(this.store.getState().hosts[name].mac)
+    }
+
+    suspend () {
+        log('suspend')
+        if (!this.store)
+        suspend()
     }
 }

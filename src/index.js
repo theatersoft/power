@@ -57,17 +57,15 @@ export class Power {
     }
 
     resolveHost (name) {
-
     }
 
     wake (name) {
         log('wake', name)
-        wake(this.store.getState().hosts[name].mac)
+        if (this.store) wake(this.store.getState().hosts[name].mac)
     }
 
     suspend () {
         log('suspend')
-        if (!this.store)
-        suspend()
+        if (!this.store) suspend()
     }
 }

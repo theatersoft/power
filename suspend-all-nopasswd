@@ -1,0 +1,4 @@
+# CAUTION ensure file installed correctly with required permissions:
+# sudo install -m 440 -o root -g root ./suspend-all-nopasswd /etc/sudoers.d/suspend-all-nopasswd
+
+%admin ALL = NOPASSWD: /bin/systemctl suspend

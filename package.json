@@ -1,7 +1,8 @@
 {
   "name": "@theatersoft/power",
-  "version": "1.4.2",
-  "description": "",
+  "version": "1.4.3",
+  "description": "Bus service module for power and battery",
+  "repository": "theatersoft/power",
   "main": "dist/power.js",
   "scripts": {
     "BUS": "BUS=`[ -f .bus ] && cat .bus` AUTH=`[ -f .auth ] && cat .auth`",
@@ -26,7 +27,7 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
-    "@theatersoft/device": "^1.1.1",
+    "@theatersoft/device": "~1",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "babel-preset-babili": "0.0.3",
     "chokidar": "^1.6.1",

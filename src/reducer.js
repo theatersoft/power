@@ -10,7 +10,7 @@ export default function reducer (state, action) {
             hosts = action.hosts.reduce((o, {name, host, mac}) =>
                 (o[name] = {host, mac}, o), {}),
             devices = action.hosts.reduce((o, {name}) =>
-                (o[name] = {name, type: Type.Switch, id: name}, o), {})
+                (o[name] = {name, type: Type.PowerSwitch, id: name}, o), {})
         return {
             ...state, hosts, devices
         }

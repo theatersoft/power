@@ -1,6 +1,6 @@
 {
   "name": "@theatersoft/power",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Bus service module for power and battery",
   "repository": "theatersoft/power",
   "main": "dist/power.js",
